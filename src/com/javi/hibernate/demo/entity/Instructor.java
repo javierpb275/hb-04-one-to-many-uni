@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,7 +45,8 @@ public class Instructor {
 		
 		//**set up relationship/mapping between Instructor and List<Course>
 		
-		@OneToMany(mappedBy="instructor",//Refers to "instructor" property in "Course" class
+		@OneToMany(fetch=FetchType.LAZY,//add lazy loading support for courses
+					mappedBy="instructor",//Refers to "instructor" property in "Course" class
 					cascade= {CascadeType.PERSIST, CascadeType.MERGE, //do NOT apply cascading DELETES (REMOVE)
 							  CascadeType.DETACH, CascadeType.REFRESH})
 		private List<Course> courses;
